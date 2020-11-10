@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const User = require('./userModels')
+const Users = require('./userModels')
 
 const currentTime = new Date().toDateString()
 
