@@ -2,7 +2,6 @@ const express = require('express')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
-const bcrypt = require('bcryptjs')
 const session = require('express-session')
 const sessionStore = require('connect-session-knex')(session)
 require('colors')
@@ -16,24 +15,24 @@ server.use(helmet())
 server.use(morgan('dev'))
 server.use(cors())
 server.use(express.json())
-// server.use(session({
-//     name: 'mouse',
-//     secret: 'xxx',
-//     cookie: {
-//         maxAge: 1000*60*60*10,
-//         secure: false,
-//         httpOnly: true
-//     },
-//     resave: false,
-//     saveUninitialized: false,
-//     store: new sessionStore({
-//         knex: require('./data/db-config'),
-//         tablename: 'sessions',
-//         sidfieldname: 'sid',
-//         createTable: true,
-//         clearInterval: 1000*60*60*10
-//     })
-// }))
+server.use(session({
+    name: 'mouse',
+    secret: 'xxx',
+    cookie: {
+        maxAge: 1000*60*60*10,
+        secure: false,
+        httpOnly: true
+    },
+    resave: false,
+    saveUninitialized: false,
+    store: new sessionStore({
+        knex: require('./data/db-config'),
+        tablename: 'sessions',
+        sidfieldname: 'sid',
+        createTable: true,
+        clearInterval: 1000*60*60*10
+    })
+}))
 
 server.use('/auth', authRouter)
 server.use('/api/users', userRouter)
