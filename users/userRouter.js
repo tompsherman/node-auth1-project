@@ -20,7 +20,7 @@ router.get('/test', (req, res) => {
 })
 // @desc		Get all users
 // @route		GET /
-router.get('/', (req, res) => {
+router.get('/', secure, (req, res) => {
     Users.find()
     .then(users => {
       res.status(200).json(users);
