@@ -7,6 +7,7 @@ const session = require('express-session')
 const sessionStore = require('connect-session-knex')(session)
 require('colors')
 
+const authRouter = require('./auth/authRouter')
 const userRouter = require('./users/userRouter')
 
 const server = express()
@@ -34,6 +35,7 @@ server.use(express.json())
 //     })
 // }))
 
+server.use('/auth', authRouter)
 server.use('/api/users', userRouter)
 
 module.exports = server
