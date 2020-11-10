@@ -30,22 +30,25 @@ router.get('/', secure, (req, res) => {
 // @desc		Get a user by id
 // @route		GET /:id
 router.get('/:id', (req, res) => {
-
-})
-// @desc		Add a new user
-// @route		POST /
-router.post('/', (req, res) => {
-
+    Users.findById(req.params.id)
+    .then(user => {
+        res.status(200).json(user)
+    })
+    .catch(error => res.status(500).json({message: `${error.message}; ${error.stack}`}))
 })
 // @desc		Update a user by id
 // @route		PUT /:id
 router.put('/:id', (req, res) => {
-
+    Users.update(req.params.id, req.body)
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(500).json({message: `${error.message}; ${error.stack}`}))
 })
 // @desc		Remove a user by id
 // @route		DELETE /:id
 router.delete('/:id', (req, res) => {
-
+    Users.remove(req.params.id)
+    .then(res.status(200).json({message:'the user is now deleted'}))
+    .catch(error => res.status(500).json({message: `${error.message}; ${error.stack}`}))
 })
 
 module.exports = router

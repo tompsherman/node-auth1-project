@@ -6,9 +6,7 @@ module.exports = {
     find, // GET / all ducks
     findBy, // GET / specific duck by specific data
     findById, // GET / specific duck
-    findSteps, //  GET / .join tables together **BAD NAME -- CHANGE **
     create, // POST / add new duck
-    createStep, // POST / insert new step **BAD NAME -- CHANGE **
     update, // PUT / edit duck
     remove // DELETE / remove duck
 
@@ -19,15 +17,14 @@ module.exports = {
         return db('users')
     }
     function findBy(filter){
-        return db('users').where(filter).orderBy('id')
+        return db('users')
+        .where(filter)
+        .orderBy('id')
     }
     function findById(id){
         return db('users')
         .where({id})
         .first()
-    }
-    function findSteps(id){
-        return db('users')
     }
     async function create(duck){
         const [id] = await
@@ -35,9 +32,6 @@ module.exports = {
             return db('users')
             .where({id})
             .first()
-    }
-    function createStep(id){
-        return db('users')
     }
     async function update(id, changes){
         const count = await db('users').where({id}).update(changes)
